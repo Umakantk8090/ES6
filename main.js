@@ -83,6 +83,11 @@ console.log(getInfo(1,5,9,3,4,7));
 
 const personArray=[
     {
+        user : "umakant4",
+        age:22,
+        country:'india',
+       },
+    {
     user : "umakant1",
     age:24,
     country:'india',
@@ -100,6 +105,65 @@ const personArray=[
 ]
 let getAllNames=personArray.map((singalePerson,index)=>{
     console.log(singalePerson,index);
-    return singalePerson.user;
+    return `${singalePerson.user} age is ${singalePerson.age}`;
+
 });
 console.log(getAllNames);
+
+
+//find(return only one value of first element and again similar element match its not return)
+let getPersonFromUSA=personArray.find((singalePerson,index)=>{
+    return singalePerson.country==='india'
+});
+console.log(getPersonFromUSA);
+
+
+//fiilter(return all according to condition)
+let getAllPersonFromUSA = personArray.filter((singalePerson,index)=>{
+    return singalePerson.country==='india'
+})
+console.log(getAllPersonFromUSA);
+
+//some(which mean return only true or false)
+let checkSomeArrayMethodWithExample=personArray.some((singalePerson,index)=>{
+    return singalePerson.age>22
+})
+console.log(checkSomeArrayMethodWithExample);
+
+
+//includes(its also returning true or false ),indexOf
+const fruitArray=["apple","mango","banana"];
+console.log(fruitArray.includes('apple'),fruitArray.indexOf("banana"));
+
+
+//findIndex
+let getfindIndexOfRussia=personArray.findIndex((singalePerson,index)=>{
+    return singalePerson.country==='russia'
+})
+console.log(getfindIndexOfRussia);
+
+
+let getListOfproductsElement=document.querySelector('.list-of-products');
+
+function renderProducts(getProducts){
+    getListOfproductsElement.innerHTML=getProducts.map(singleProductItem => `<p>${singleProductItem.title}</p>`).join(' ');
+}
+
+
+
+async function fetchListOfProducts(){
+    try {
+        const apiResponse = await fetch('https://dummyjson.com/products',{
+            method : 'GET'
+        });
+        const result=await apiResponse.json();
+        console.log(result);
+        if(result?.products?.length >0) renderProducts(result?.products)
+        
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+
+fetchListOfProducts()
